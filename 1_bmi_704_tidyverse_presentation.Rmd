@@ -46,7 +46,6 @@ mtcarsNew <- mtcars2 %>% gather(attribute, value, mpg:qsec)
   + Originally conceived of and developed by Hadley Wickham but has grown into a thriving community of developers
   
   
-  
 
 ## The relationship between different components of the tidyverse
 
@@ -62,6 +61,11 @@ In today's lecture we assume that data has been loaded on tools for analyzing da
 3. tidyr: used to make tidy data (method of storing data for future analysis) 
 4. ggplot2: used to develop visualizations
 5. broom: used to convert statistical models into tidy data
+
+Download laboratory and exercise files from this github repo:
+
+https://github.com/cmlakhan/dplyr_tutorial/archive/master.zip
+
 
 
 ## Dataset that will be used in this tutorial
