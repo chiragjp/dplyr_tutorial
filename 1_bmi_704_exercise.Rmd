@@ -1,0 +1,41 @@
+---
+title: "1_bmi_704_exercise"
+author: "Chirag Lakhani/Chirag Patel"
+date: "1/31/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DT)
+library(tidyverse)
+library(broom)
+knitr::opts_chunk$set(echo = TRUE)
+load('nh_bmi704.Rdata')
+
+
+```
+
+
+In this exercise you will use the NHANES dataset (loaded in the R code above) to run many regressions at the same time. 
+
+
+* Run a regression where you try to predict BMI as a function of age, gender, ethnicity, LDL cholesterol levels, systolic blood pressure reading, and triglyceride levels, but you will run this on each NHANES survey year individually. Take a look at the lecture slides for an example for how to do this type of analysis.
+
+
+```{r}
+
+
+```
+
+
+* Extract the coefficient estimates using broom and plot a scatterplot where x-axis has survey year and the y-axis has regression coefficient estimates for a particular covariate (e.g. x=survey year and y=regression coefficient of age).  You can plot all estimates in one plot by using the facet_wrap command on the term column. (Remember to ungroup in order to extract coefficients for plotting purposes.)
+
+
+```{r}
+
+
+
+```
+
+

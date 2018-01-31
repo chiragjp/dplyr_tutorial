@@ -1,0 +1,259 @@
+---
+title: "Tidyverse BMI 704 Laboratory"
+author: "Chirag Patel and Chirag Lakhani"
+date: "1/21/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+#install.packages('DT')
+library(DT)
+library(tidyverse)
+library(broom)
+knitr::opts_chunk$set(echo = TRUE)
+load('nh_bmi704.Rdata')
+```
+
+# Data Description
+These data are from the National Health and Nutrition Examination Survey (NHANES), a non-institutionalized sampling of the United States: [https://www.cdc.gov/nchs/nhanes/index.htm](NHANES)
+
+In this lab we will explore phenotypes (P) of the metabolic syndrome, a risk factor for type 2 diabetes and heart disease.
+
+# Data catalog
+
+```{r}
+DT::datatable(VarDescription)
+```
+
+
+
+# Data Manipulation
+
+* create a new variable called *gender* (using the *RIAGENDR* column) with values and append to the dataframe **nhData**
+    + M - males
+    + F - females
+  
+* create a new variable called *ethnicity* (using the *RIDRETH1* column) with the following values and append to the dataframe **nhData**
+    + H - Mexican American or Other Hispanic
+    + W - White
+    + B - Black
+    + O - Other
+
+* create a new variable called *age_group* (using the *RIDAGEYR* column) with the following values and append to the dataframe **nhData**
+    + [0-18)
+    + [18-30)
+    + [30-60)
+    + [60+)
+    
+
+* create a new variable called *obesity* (using the *BMXBMI* column) with the following values and append to the dataframe **nhData**
+    + normal - if BMXBMI < 30
+    + obese - if BMXBMI >= 30
+
+
+
+* create a new variable called *diabetes* (using the *LBXGLU* column) with the following values and append to the dataframe **nhData**
+    + normal - if LBXGLU < 126.0
+    + diabetic - if LBXGLU >= 126.0
+    
+
+```{r}
+
+nhData <- nhData %>% mutate(gender = case_when(RIAGENDR == '1' ~ 'M', 
+                                               RIAGENDR == '2' ~ 'F' ))
+
+
+nhData <- nhData %>% mutate(ethnicity = case_when(RIDRETH1 == '1' | RIDRETH1 == '2'  ~ 'H', 
+                                                  RIDRETH1 == '3' ~ 'W',
+                                                  RIDRETH1 == '4' ~ 'B',
+                                                  RIDRETH1 == '5' ~ 'O',))
+
+
+
+nhData <- nhData %>% mutate(age_group = case_when(RIDAGEYR >= 0 & RIDAGEYR < 18   ~ '[0,18)', 
+                                                  RIDAGEYR >= 18 & RIDAGEYR < 30   ~ '[18,30)',
+                                                  RIDAGEYR >= 30 & RIDAGEYR < 60   ~ '[30,60)',
+                                                  RIDAGEYR >= 60   ~ '[60+)',))
+
+
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+# Data Exploration with dplyr
+
+
+### Find the following counts
+
+* Number of individuals by gender
+* Number of individuals by ethnicity
+* Number of individuals by age group
+* Number of individuals by gender and ethnicity (order by ethnicity and then gender)
+
+```{r}
+
+nhData %>% group_by() %>% summarise(numIndividuals=n())
+
+
+
+```
+
+
+
+### More practice with dplyr
+
+* Create a dataframe called **bmi_ldl_df_age_gender** which contains only BMI, LDL, age group, and gender
+* Using **bmi_ldl_df_age_gender** create a new dataset called **bmi_ldl_age_female** which only contains females
+* Using the data frame **bmi_ldl_age_female** estimate the mean bmi and ldl level for each age group
+
+
+```{r}
+bmi_ldl_df_age_gender <- nhData %>% select()
+
+bmi_ldl_df_age_female <- bmi_ldl_df_age_gender %>% filter()
+
+bmi_ldl_df_age_female %>% group_by() %>% summarise(avgLDL=mean(), avgBMI=mean())
+
+
+```
+  
+  
+  
+# Plotting with ggplot2
+
+
+* What is the distribution of age in the population? Use 60 bins instead of default of 30.
+```{r}
+
+ggplot(nhData,aes()) + geom_histogram(bins=)
+
+
+```
+
+
+ Create boxplots of BMI, systolic blood pressure and LDL by gender (using the **nhData** dataframe) (give each gender a different color)
+
+
+```{r}
+
+ggplot(nhData, aes(x=, y=, fill=)) + geom_boxplot() 
+ggplot(nhData, aes(x=, y=, fill=)) + geom_boxplot() 
+ggplot(nhData, aes(x=, y=, fill=)) + geom_boxplot() 
+
+
+```
+
+
+* Create boxplots of BMI, HDL and LDL by gender that are facetted by ethnicity.
+
+```{r}
+ggplot(nhData, aes(x=, y=, fill=)) + geom_boxplot() + facet_wrap() 
+ggplot(nhData, aes(x=, y=, fill=)) + geom_boxplot() + facet_wrap() 
+ggplot(nhData, aes(x=, y=, fill=)) + geom_boxplot() + facet_wrap() 
+
+
+
+```
+
+
+* Create a boxplot of systolic blood pressure by type 2 diabetes status facetted by gender (color by diabetes status).
+
+[http://diabetes.diabetesjournals.org/content/66/2/543](See Mendelian Randomization Study relating systolic blood pressure to T2D)
+
+```{r}
+
+
+ggplot(nhData, aes(x=, y=, fill=)) + geom_boxplot() + facet_wrap() 
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Correlations
+- Repeat above correlations with remaining P: glucose,HDL, LDL
+- Plot the correlations in different age, sex, and race/ethnciicity groups
+
+* Find the correlation between age and BMI
+
+
+```{r}
+
+nhData %>% summarise(cor())
+
+
+
+
+```
+
+* Calculate the correlation between age and BMI and count the number of people for each gender
+```{r}
+
+nhData %>% group_by() %>% summarise(cor(), numberpeople=n())
+
+```
+
+
+* 
+
+
+
+
+
+
+# Linear Modeling
+- correlate each variable with each other
+- create a linear model predicting each P as a function of age, sex, race/ethncity
+- what is the R2 of each?
+- what is the coeffcicients of the lienar model for each risk factor (age, sex, race/ethncitiy)? What is the interpetation?
+
+
+
+* create a linear model predicting BMI as a function of age, sex, race/ethncity, LDL cholestrol, Triglycerides, and Systolic Blood Pressure and output the coefficients into a data frame called **fit_tidy** and the output model summary into a data frame called **fit_glance**, what is the $R^2$
+
+
+```{r}
+
+regressions <-  nhData %>% do(fit=lm(, data = .))
+
+
+
+fit_tidy <- regressions %>% tidy()
+
+fit_glance <- regressions %>% glance()
+
+DT::datatable()
+
+
+DT::datatable()
+
+
+
+```
+
