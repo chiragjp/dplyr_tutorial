@@ -68,6 +68,18 @@ https://github.com/cmlakhan/dplyr_tutorial/archive/master.zip
 
 
 
+## Laboratory and Exercise
+In order to give you hands-on experience with dplyr we have created an in-class laboratory and small exercise.  These files are R markdown files where you will fill in the requisite R code and then "knit" the markdown to create an html file.  You will need to do the following:
+
+*  Open the laboratory file "1_bmi_704_laboratory.Rmd" and fill in the R code.  Once that is done knit the file to generate an html file.
+*  Open the exercise file "1_bmi_704_exercise.Rmd" and write your own R code to complete the assignment.  Once that is done knit the file and generate an html file.
+* Submit both html files to the Dropbox below:
+
+https://www.dropbox.com/request/uUktvEpV6B79jT2hiZWJ
+
+* Due date will be Friday, 2/2/2018 by 11:59 pm
+
+
 ## Dataset that will be used in this tutorial
 We will use the **iris** dataset as a running example throughout this lecture
 
